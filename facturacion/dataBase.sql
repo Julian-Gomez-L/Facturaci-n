@@ -36,7 +36,7 @@ CREATE TABLE t_cliente(
 
 CREATE TABLE t_producto(
     id_producto     int(11)     AUTO_INCREMENT  NOT NULL,
-    producto        varchar(100)
+    producto        varchar(100),
     valor_unitario  float(10,2),     
     id_unidad       int(11),
     CONSTRAINT      pk_producto      PRIMARY KEY(id_producto),
@@ -44,14 +44,29 @@ CREATE TABLE t_producto(
 )ENGINE=InnoDb;
 
 CREATE TABLE t_factura(
-    id_factura     int(11)     AUTO_INCREMENT  NOT NULL,
-    fecha        DATE,
-    cantidad        varchar(11),
-    valor_unitario  int(11),     
-    id_cliente       int(11),
-    id_producto     int(11,)
-    CONSTRAINT      pk_factura      PRIMARY KEY(id_factura),
-    CONSTRAINT      fk_cliente       FOREIGN KEY(id_cliente)  REFERENCES t_cliente(id_cliente),
-    CONSTRAINT      fk_producto       FOREIGN KEY(id_producto)  REFERENCES t_producto(id_producto)
+    id_factura      INT AUTO_INCREMENT NOT NULL,
+    fecha           DATE,
+    cantidad        INT,
+    valor_unitario  FLOAT(10,2),
+    id_cliente      INT,
+    id_producto     INT,
+    PRIMARY KEY(id_factura),
+    FOREIGN KEY(id_cliente) REFERENCES t_cliente(id_cliente),
+    FOREIGN KEY(id_producto) REFERENCES t_producto(id_producto)
+)ENGINE=InnoDB;
 
-)ENGINE=InnoDb;
+CREATE TABLE IF NO EXISTS t_usuario(
+    id_usuario      INT (11)     NOT NULL,
+    Nombre          VARCHAR(100) NOT NULL,
+    Apellido        VARCHAR(100) NOT NULL,
+    Email           VARCHAR(100) NOT NULL,
+    Pasword         VARCHAR(100) NOT NULL,
+    PRIMARY KEY(id_usuario),
+    FOREIGN KEY(id_rol) REFERENCES t_rol(id_rol)
+)ENGINE=InnoDB;
+
+CREATE TABLE IF NO EXISTS t_rol(
+    id_rol          INT (11) NOT NULL,
+    rol             INT (11) NOT NULL,
+    PRIMARY KEY(id_rol)
+)ENGINE=InnoDB;
